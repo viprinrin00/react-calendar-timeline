@@ -47,13 +47,14 @@ export default class Ranges extends Component {
     let visibleRanges = this.getVisibleRanges(visibleTimeStart, visibleTimeEnd, this.props.ranges)
     return (
       <div className='rct-ranges'>
-        {visibleRanges.map(range => <Range canvasTimeStart={this.props.canvasTimeStart}
+        {visibleRanges.map((range,index) => <Range canvasTimeStart={this.props.canvasTimeStart}
                                            canvasTimeEnd={this.props.canvasTimeEnd}
                                            canvasWidth={this.props.canvasWidth}
                                            className={range.className}
                                            height={this.props.height}
                                            headerHeight={this.props.headerHeight}
                                            key={_get(range, rangeIdKey)}
+                                           index={index}
                                            keys={this.props.keys}
                                            range={range}
                                            rangeStart={range.start}
