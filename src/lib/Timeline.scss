@@ -289,3 +289,10 @@ $weekend: rgba(250, 246, 225, 0.5);
     z-index: 85;
   }
 }
+
+.rct-range {
+  position: absolute;
+  background: rgba(100,0,0,0.5);
+  border-left: 2px solid rgb(100,0,0);
+  border-right: 2px solid rgb(100,0,0);
+}
