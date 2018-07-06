@@ -15,9 +15,6 @@ export default class Range extends Component {
     super(props)
 
     this.state = {
-      rangeId: _get(props.range, props.keys.rangeIdKey),
-      rangeTimeStart: _get(props.range, props.keys.rangeTimeStartKey),
-      rangeTimeEnd: _get(props.range, props.keys.rangeTimeEndKey)
     }
   }
 
@@ -53,14 +50,13 @@ export default class Range extends Component {
   }
 
   render () {
-    const { rangeTimeStart, rangeTimeEnd } = this.state
-    if (rangeTimeStart !== null && rangeTimeEnd !== null) {
+    if (this.props.range.start !== null && this.props.range.end !== null) {
       const { canvasTimeEnd, canvasTimeStart, canvasWidth } = this.props
       let ratio = canvasWidth / (canvasTimeEnd - canvasTimeStart)
       let top = 0
       let height = this.props.height
-      let left = this.left(canvasTimeStart, rangeTimeStart, ratio)
-      let width = this.width(canvasTimeEnd, canvasTimeStart, canvasWidth, left, rangeTimeEnd, ratio)
+      let left = this.left(canvasTimeStart, this.props.range.start, ratio)
+      let width = this.width(canvasTimeEnd, canvasTimeStart, canvasWidth, left, this.props.range.end, ratio)
 
       let styles = {
         top: `${top}px`,
@@ -68,7 +64,6 @@ export default class Range extends Component {
         height: `${height}px`,
         width: `${width}px`
       }
-      console.log(styles);
       let classNames = 'rct-range' + (this.props.range.className ? ` ${this.props.range.className}` : '')
       return <div className={classNames} style={styles} />
     } else {
