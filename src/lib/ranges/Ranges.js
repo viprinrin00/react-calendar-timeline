@@ -53,8 +53,7 @@ export default class Ranges extends Component {
                                            className={range.className}
                                            height={this.props.height}
                                            headerHeight={this.props.headerHeight}
-                                           key={_get(range, rangeIdKey)}
-                                           index={index}
+                                           key={index}
                                            keys={this.props.keys}
                                            range={range}
                                            rangeStart={range.start}

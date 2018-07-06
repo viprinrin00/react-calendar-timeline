@@ -65,7 +65,7 @@ export default class Range extends Component {
         width: `${width}px`
       }
       let classNames = 'rct-range' + (this.props.range.className ? ` ${this.props.range.className}` : '')
-      return <div className={classNames} style={styles} key={this.props.index}/>
+      return <div className={classNames} style={styles}/>
     } else {
       return null
     }
