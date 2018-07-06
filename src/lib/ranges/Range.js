@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { _get } from '../utils'
+import { _get } from '../utility/generic'
 export default class Range extends Component {
   static propTypes = {
     canvasTimeStart: React.PropTypes.number.isRequired,

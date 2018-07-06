@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Range from './Range'
-import { _get, arraysEqual } from '../utils'
+import { _get, arraysEqual } from '../utility/generic'
 
 export default class Ranges extends Component {
   static propTypes = {
