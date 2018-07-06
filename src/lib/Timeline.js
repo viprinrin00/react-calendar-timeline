@@ -11,6 +11,7 @@ import HorizontalLines from './lines/HorizontalLines'
 import TodayLine from './lines/TodayLine'
 import CursorLine from './lines/CursorLine'
 import ScrollElement from './scroll/ScrollElement'
+import Ranges from './ranges/Ranges'
 
 import windowResizeDetector from '../resize-detector/window'
 
@@ -161,7 +162,8 @@ export default class ReactCalendarTimeline extends Component {
       removeListener: PropTypes.func
     }),
 
-    children: PropTypes.node
+    children: PropTypes.node,
+    ranges: PropTypes.array
   }
 
   static defaultProps = {
@@ -240,7 +242,8 @@ export default class ReactCalendarTimeline extends Component {
     headerLabelFormats: defaultHeaderLabelFormats,
     subHeaderLabelFormats: defaultSubHeaderLabelFormats,
 
-    selected: null
+    selected: null,
+    ranges: null
   }
 
   static childContextTypes = {
@@ -820,6 +823,20 @@ export default class ReactCalendarTimeline extends Component {
         lineCount={_length(this.props.groups)}
         height={height}
         headerHeight={headerHeight}
+      />
+    )
+  }
+  ranges (canvasTimeStart, canvasTimeEnd, canvasWidth, height, headerHeight) {
+    return (
+      <Ranges canvasTimeStart={canvasTimeStart}
+              canvasTimeEnd={canvasTimeEnd}
+              canvasWidth={canvasWidth}
+              height={height}
+              headerHeight={headerHeight}
+              keys={this.props.keys}
+              ranges={this.props.ranges}
+              visibleTimeStart={this.state.visibleTimeStart}
+              visibleTimeEnd={this.state.visibleTimeEnd}
       />
     )
   }
@@ -1416,6 +1433,7 @@ export default class ReactCalendarTimeline extends Component {
                 height,
                 headerHeight
               )}
+              {this.props.ranges && this.ranges(canvasTimeStart, canvasTimeEnd, canvasWidth, height, headerHeight)}
               {mouseOverCanvas && showCursorLine
                 ? this.cursorLine(
                     cursorTime,
