@@ -163,7 +163,7 @@ export default class ReactCalendarTimeline extends Component {
     }),
 
     children: PropTypes.node,
-    ranges: PropTypes.array
+    ranges:PropTypes.array,
   }
 
   static defaultProps = {
@@ -826,6 +826,7 @@ export default class ReactCalendarTimeline extends Component {
       />
     )
   }
+  
   ranges (canvasTimeStart, canvasTimeEnd, canvasWidth, height, headerHeight) {
     return (
       <Ranges canvasTimeStart={canvasTimeStart}

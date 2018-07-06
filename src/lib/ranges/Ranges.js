@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { _get, arraysEqual} from '../utility/generic'
 import Range from './Range'
-import { _get, arraysEqual } from '../utility/generic'
 
 export default class Ranges extends Component {
   static propTypes = {
@@ -14,7 +15,6 @@ export default class Ranges extends Component {
     visibleTimeStart: PropTypes.number.isRequired,
     visibleTimeEnd: PropTypes.number.isRequired
   }
-
   shouldComponentUpdate (nextProps, nextState) {
     return !(nextProps.canvasTimeStart === this.props.canvasTimeStart &&
              nextProps.canvasTimeEnd === this.props.canvasTimeEnd &&
@@ -28,6 +28,8 @@ export default class Ranges extends Component {
       )
   }
 
+  static defaultProps = {}
+
   getVisibleRanges (visibleTimeStart, visibleTimeEnd, ranges) {
     return ranges.reduce((acc, range) => {
       if (visibleTimeStart < range.end && visibleTimeEnd > range.start) {
@@ -38,12 +40,11 @@ export default class Ranges extends Component {
       }
     }, [])
   }
-
-  render () {
+  
+  render() {
     const { visibleTimeStart, visibleTimeEnd } = this.props
     const { rangeIdKey } = this.props.keys
     let visibleRanges = this.getVisibleRanges(visibleTimeStart, visibleTimeEnd, this.props.ranges)
-
     return (
       <div className='rct-ranges'>
         {visibleRanges.map(range => <Range canvasTimeStart={this.props.canvasTimeStart}

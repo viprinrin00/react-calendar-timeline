@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { _get } from '../utility/generic'
+import { _get} from '../utility/generic'
 export default class Range extends Component {
   static propTypes = {
     canvasTimeStart: React.PropTypes.number.isRequired,
@@ -57,8 +57,8 @@ export default class Range extends Component {
     if (rangeTimeStart !== null && rangeTimeEnd !== null) {
       const { canvasTimeEnd, canvasTimeStart, canvasWidth } = this.props
       let ratio = canvasWidth / (canvasTimeEnd - canvasTimeStart)
-      let top = this.props.headerHeight
-      let height = this.props.height - this.props.headerHeight
+      let top = 0
+      let height = this.props.height
       let left = this.left(canvasTimeStart, rangeTimeStart, ratio)
       let width = this.width(canvasTimeEnd, canvasTimeStart, canvasWidth, left, rangeTimeEnd, ratio)
 
@@ -68,7 +68,7 @@ export default class Range extends Component {
         height: `${height}px`,
         width: `${width}px`
       }
-
+      console.log(styles);
       let classNames = 'rct-range' + (this.props.range.className ? ` ${this.props.range.className}` : '')
       return <div className={classNames} style={styles} />
     } else {

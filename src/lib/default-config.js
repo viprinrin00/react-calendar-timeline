@@ -7,7 +7,9 @@ export const defaultKeys = {
   itemDivTitleKey: 'title',
   itemGroupKey: 'group',
   itemTimeStartKey: 'start_time',
-  itemTimeEndKey: 'end_time'
+  itemTimeEndKey: 'end_time',
+  rangeTimeStartKey: 'start',
+  rangeTimeEndKey: 'end'
 }
 
 export const defaultTimeSteps = {
