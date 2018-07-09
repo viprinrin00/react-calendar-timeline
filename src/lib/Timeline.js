@@ -726,7 +726,7 @@ export default class ReactCalendarTimeline extends Component {
       }
     }
     if (!hasSomeParentTheClass(e.target, 'rct-range')) {
-      if (this.state.selectedRange) {
+      if (this.state.selectedRange !== null) {
         this.selectRange(null)
       } else if (this.props.onCanvasClick) {
         const [row, time] = this.rowAndTimeFromScrollAreaEvent(e)
