@@ -166,6 +166,7 @@ export default class ReactCalendarTimeline extends Component {
     ranges:PropTypes.array,
     onRangeSelect:PropTypes.func,
     onRangeDoubleClick:PropTypes.func,
+    selectedRange:PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   }
 
   static defaultProps = {
@@ -248,6 +249,7 @@ export default class ReactCalendarTimeline extends Component {
     ranges: null,
     onRangeSelect:null,
     onRangeDoubleClick:null,
+    selectedRange:null
   }
 
   static childContextTypes = {
@@ -434,9 +436,11 @@ export default class ReactCalendarTimeline extends Component {
       visibleTimeEnd,
       items,
       groups,
-      sidebarWidth
+      sidebarWidth,
+      selectedRange
     } = nextProps
 
+    this.selectRange(selectedRange);
     if (visibleTimeStart && visibleTimeEnd) {
       this.updateScrollCanvas(
         visibleTimeStart,
