@@ -164,7 +164,8 @@ export default class ReactCalendarTimeline extends Component {
 
     children: PropTypes.node,
     ranges:PropTypes.array,
-    onRangeSelect:PropTypes.func
+    onRangeSelect:PropTypes.func,
+    onRangeDoubleClick:PropTypes.func,
   }
 
   static defaultProps = {
@@ -245,7 +246,8 @@ export default class ReactCalendarTimeline extends Component {
 
     selected: null,
     ranges: null,
-    onRangeSelect:null
+    onRangeSelect:null,
+    onRangeDoubleClick:null,
   }
 
   static childContextTypes = {
@@ -719,6 +721,20 @@ export default class ReactCalendarTimeline extends Component {
         }
       }
     }
+    if (!hasSomeParentTheClass(e.target, 'rct-range')) {
+      if (this.state.selectedRange) {
+        this.selectRange(null)
+      } else if (this.props.onCanvasClick) {
+        const [row, time] = this.rowAndTimeFromScrollAreaEvent(e)
+        if (row >= 0 && row < this.props.groups.length) {
+          const groupId = _get(
+            this.props.groups[row],
+            this.props.keys.groupIdKey
+          )
+          this.props.onCanvasClick(groupId, time, e)
+        }
+      }
+    }
   }
 
   dragItem = (item, dragTime, newGroupOrder) => {
@@ -834,6 +850,9 @@ export default class ReactCalendarTimeline extends Component {
     
     }else{
       this.setState({ selectedRange: range })
+      if(this.props.onRangeSelect){
+        this.props.onRangeSelect(range);
+      }
     }
   }
   ranges (canvasTimeStart, canvasTimeEnd, canvasWidth, height, headerHeight,groups,groupHeights) {
@@ -852,6 +871,7 @@ export default class ReactCalendarTimeline extends Component {
               rangeSelect={this.selectRange}
               groups={groups}
               groupHeights={groupHeights}
+              onRangeDoubleClick={this.props.onRangeDoubleClick}
       />
     )
   }

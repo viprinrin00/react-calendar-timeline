@@ -13,6 +13,7 @@ export default class Range extends Component {
     selected: React.PropTypes.bool,
     groups: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.object]).isRequired,
     groupHeights: React.PropTypes.array.isRequired,
+    onRangeDoubleClick: React.PropTypes.func,
   }
 
   constructor (props) {
@@ -60,6 +61,11 @@ export default class Range extends Component {
       this.props.onRangeSelect(this.props.range.id);
     }
   }
+  handleDoubleClick = ()=>{
+    if(this.props.onRangeDoubleClick) {
+      this.props.onRangeDoubleClick(this.props.range);
+    }
+  }
   render () {
     if (this.props.range.start !== null && this.props.range.end !== null) {
       const { canvasTimeEnd, canvasTimeStart, canvasWidth } = this.props
@@ -98,7 +104,11 @@ export default class Range extends Component {
       }
       let classNames = 'rct-range' + (this.props.selected ? ' rct-range-selected': this.props.range.className ? ` ${this.props.range.className}` : '')
       let title = this.props.range.start.format('HH:mm') + ' - ' + this.props.range.end.format('HH:mm')
-      return <div className={classNames} style={styles} onClick={this.handleSelect} title={title}/>
+      return <div className={classNames}
+                  style={styles}
+                  onClick={this.handleSelect}
+                  onDoubleClick={this.handleDoubleClick}
+                  title={title}/>
     } else {
       return null
     }

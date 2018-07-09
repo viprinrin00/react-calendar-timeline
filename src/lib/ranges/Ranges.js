@@ -18,6 +18,7 @@ export default class Ranges extends Component {
     selectedRange:PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     groups: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
     groupHeights: PropTypes.array.isRequired,
+    onRangeDoubleClick: React.PropTypes.func,
   }
   shouldComponentUpdate (nextProps, nextState) {
     return !(nextProps.canvasTimeStart === this.props.canvasTimeStart &&
@@ -55,6 +56,11 @@ export default class Ranges extends Component {
   isSelected = (range,rangeIdKey)=>{
     return this.props.selectedRange === _get(range, rangeIdKey)
   }
+  handleRangeDoubleClick = (range) =>{
+    if(this.props.onRangeDoubleClick) {
+      this.props.onRangeDoubleClick(range);
+    }
+  }
   render() {
     const { rangeIdKey } = this.props.keys
     const { visibleTimeStart, visibleTimeEnd } = this.props
@@ -71,6 +77,7 @@ export default class Ranges extends Component {
                                            keys={this.props.keys}
                                            range={range}
                                            onRangeSelect={this.handleRangeSelect}
+                                           onRangeDoubleClick={this.handleRangeDoubleClick}
                                            selected={this.isSelected(range,rangeIdKey)}
                                            groups={this.props.groups}
                                            groupHeights={this.props.groupHeights}
