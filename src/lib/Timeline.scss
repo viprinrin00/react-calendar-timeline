@@ -293,8 +293,9 @@ $weekend: rgba(250, 246, 225, 0.5);
   .rct-range {
     position: absolute;
     background: rgba(100,0,0,0.5);
-    border-left: 2px solid rgb(100,0,0);
-    border-right: 2px solid rgb(100,0,0);
+    border-left: 1px solid rgb(100,0,0);
+    border-right: 1px solid rgb(100,0,0);
+    border-bottom: 1px solid rgb(100,0,0);
     z-index:52;
   }
   .rct-range-selected {

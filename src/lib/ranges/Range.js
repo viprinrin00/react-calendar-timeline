@@ -13,7 +13,6 @@ export default class Range extends Component {
     selected: React.PropTypes.bool,
     groups: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.object]).isRequired,
     groupHeights: React.PropTypes.array.isRequired,
-    nextRange: React.PropTypes.object,
   }
 
   constructor (props) {
@@ -70,27 +69,27 @@ export default class Range extends Component {
       
       let top = 0;
       let index = 0;
+      let height = 0;
       if(this.props.range.group) {
         let index = this.props.groups.indexOf(this.props.range.group)
         for (let i = 0; i < index; i++) {
           top += this.props.groupHeights[i];
         }
-      }
-      
-      let height = 0;
-      if(this.props.nextRange){
-        let nextIndex = this.props.groups.indexOf(this.props.nextRange.group)
-        let nextTop = 0;
-        for (let i = 0; i < nextIndex; i++){
-          nextTop += this.props.groupHeights[i];
+        let count = 0
+        for (let i = index; i<this.props.groups.length;i++){
+          if (this.props.range.group.id !== this.props.groups[i].id && !this.props.groups[i].parent){
+            break;
+          }
+          count++;
         }
-        height = nextTop;
+        for (let i = index; i < index + count; i++) {
+          height += this.props.groupHeights[i];
+        }
       }else{
-        for (let i = index; i < this.props.groupHeights.length; i++){
+        for (let i = 0; i < this.props.groupHeights.length; i++){
           height += this.props.groupHeights[i];
         }
       }
-      
       let styles = {
         top: `${top}px`,
         left: `${left}px`,

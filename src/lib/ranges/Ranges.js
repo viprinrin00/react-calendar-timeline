@@ -74,7 +74,6 @@ export default class Ranges extends Component {
                                            selected={this.isSelected(range,rangeIdKey)}
                                            groups={this.props.groups}
                                            groupHeights={this.props.groupHeights}
-                                           nextRange={visibleRanges[index+1]}
                                            rangeStart={range.start}
                                            rangeEnd={range.end} />)}
       </div>
