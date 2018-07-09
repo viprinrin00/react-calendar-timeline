@@ -16,6 +16,8 @@ export default class Ranges extends Component {
     visibleTimeEnd: PropTypes.number.isRequired,
     onRangeSelect: PropTypes.func,
     selectedRange:PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    groups: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+    groupHeights: PropTypes.array.isRequired,
   }
   shouldComponentUpdate (nextProps, nextState) {
     return !(nextProps.canvasTimeStart === this.props.canvasTimeStart &&
@@ -27,7 +29,9 @@ export default class Ranges extends Component {
              arraysEqual(nextProps.ranges, this.props.ranges) &&
              nextProps.visibleTimeStart === this.props.visibleTimeStart &&
              nextProps.visibleTimeEnd === this.props.visibleTimeEnd &&
-             nextProps.selectedRange === this.props.selectedRange
+             nextProps.selectedRange === this.props.selectedRange &&
+             nextProps.groupHeights === this.props.groupHeights &&
+             arraysEqual(nextProps.groups, this.props.groups)
       )
   }
 
@@ -68,6 +72,9 @@ export default class Ranges extends Component {
                                            range={range}
                                            onRangeSelect={this.handleRangeSelect}
                                            selected={this.isSelected(range,rangeIdKey)}
+                                           groups={this.props.groups}
+                                           groupHeights={this.props.groupHeights}
+                                           nextRange={visibleRanges[index+1]}
                                            rangeStart={range.start}
                                            rangeEnd={range.end} />)}
       </div>

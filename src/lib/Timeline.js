@@ -836,7 +836,7 @@ export default class ReactCalendarTimeline extends Component {
       this.setState({ selectedRange: range })
     }
   }
-  ranges (canvasTimeStart, canvasTimeEnd, canvasWidth, height, headerHeight) {
+  ranges (canvasTimeStart, canvasTimeEnd, canvasWidth, height, headerHeight,groups,groupHeights) {
     return (
       <Ranges canvasTimeStart={canvasTimeStart}
               canvasTimeEnd={canvasTimeEnd}
@@ -850,6 +850,8 @@ export default class ReactCalendarTimeline extends Component {
               onRangeSelect={this.selectRange}
               selectedRange={this.state.selectedRange}
               rangeSelect={this.selectRange}
+              groups={groups}
+              groupHeights={groupHeights}
       />
     )
   }
@@ -1446,7 +1448,7 @@ export default class ReactCalendarTimeline extends Component {
                 height,
                 headerHeight
               )}
-              {this.props.ranges && this.ranges(canvasTimeStart, canvasTimeEnd, canvasWidth, height, headerHeight)}
+              {this.props.ranges && this.ranges(canvasTimeStart, canvasTimeEnd, canvasWidth, height, headerHeight,groups,groupHeights)}
               {mouseOverCanvas && showCursorLine
                 ? this.cursorLine(
                     cursorTime,
