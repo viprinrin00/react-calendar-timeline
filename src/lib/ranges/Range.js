@@ -8,7 +8,9 @@ export default class Range extends Component {
     height: React.PropTypes.number.isRequired,
     headerHeight: React.PropTypes.number.isRequired,
     keys: React.PropTypes.object.isRequired,
-    range: React.PropTypes.object.isRequired
+    range: React.PropTypes.object.isRequired,
+    onRangeSelect: React.PropTypes.func,
+    selected: React.PropTypes.bool
   }
 
   constructor (props) {
@@ -25,7 +27,8 @@ export default class Range extends Component {
              nextProps.height === this.props.height &&
              nextProps.headerHeight === this.props.headerHeight &&
              nextProps.keys === this.props.keys &&
-             nextProps.range === this.props.range
+             nextProps.range === this.props.range &&
+             nextProps.selected === this.props.selected
     )
   }
 
@@ -48,7 +51,11 @@ export default class Range extends Component {
       return canvasWidth
     }
   }
-
+  handleSelect = ()=> {
+    if (this.props.onRangeSelect){
+      this.props.onRangeSelect(this.props.range.id);
+    }
+  }
   render () {
     if (this.props.range.start !== null && this.props.range.end !== null) {
       const { canvasTimeEnd, canvasTimeStart, canvasWidth } = this.props
@@ -64,8 +71,9 @@ export default class Range extends Component {
         height: `${height}px`,
         width: `${width}px`
       }
-      let classNames = 'rct-range' + (this.props.range.className ? ` ${this.props.range.className}` : '')
-      return <div className={classNames} style={styles}/>
+      let classNames = 'rct-range' + (this.props.range.className ? ` ${this.props.range.className}` : '') + (this.props.selected ? ' rct-range-selected':'')
+      let title = this.props.range.start.format('HH:mm') + ' - ' + this.props.range.end.format('HH:mm')
+      return <div className={classNames} style={styles} onClick={this.handleSelect} title={title}/>
     } else {
       return null
     }
@@ -73,4 +81,5 @@ export default class Range extends Component {
 }
 
 Range.defaultProps = {
+    selected: false
 }

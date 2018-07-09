@@ -164,6 +164,7 @@ export default class ReactCalendarTimeline extends Component {
 
     children: PropTypes.node,
     ranges:PropTypes.array,
+    onRangeSelect:PropTypes.func
   }
 
   static defaultProps = {
@@ -243,7 +244,8 @@ export default class ReactCalendarTimeline extends Component {
     subHeaderLabelFormats: defaultSubHeaderLabelFormats,
 
     selected: null,
-    ranges: null
+    ranges: null,
+    onRangeSelect:null
   }
 
   static childContextTypes = {
@@ -314,7 +316,8 @@ export default class ReactCalendarTimeline extends Component {
       resizeTime: null,
       topOffset: 0,
       resizingItem: null,
-      resizingEdge: null
+      resizingEdge: null,
+      selectedRange: null
     }
 
     const { dimensionItems, height, groupHeights, groupTops } = this.stackItems(
@@ -826,7 +829,13 @@ export default class ReactCalendarTimeline extends Component {
       />
     )
   }
-  
+  selectRange = (range)=>{
+    if(this.state.selectedRange === range){
+    
+    }else{
+      this.setState({ selectedRange: range })
+    }
+  }
   ranges (canvasTimeStart, canvasTimeEnd, canvasWidth, height, headerHeight) {
     return (
       <Ranges canvasTimeStart={canvasTimeStart}
@@ -838,6 +847,9 @@ export default class ReactCalendarTimeline extends Component {
               ranges={this.props.ranges}
               visibleTimeStart={this.state.visibleTimeStart}
               visibleTimeEnd={this.state.visibleTimeEnd}
+              onRangeSelect={this.selectRange}
+              selectedRange={this.state.selectedRange}
+              rangeSelect={this.selectRange}
       />
     )
   }

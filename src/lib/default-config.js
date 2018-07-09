@@ -9,7 +9,8 @@ export const defaultKeys = {
   itemTimeStartKey: 'start_time',
   itemTimeEndKey: 'end_time',
   rangeTimeStartKey: 'start',
-  rangeTimeEndKey: 'end'
+  rangeTimeEndKey: 'end',
+  rangeIdKey:'id'
 }
 
 export const defaultTimeSteps = {

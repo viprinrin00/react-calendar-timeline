@@ -13,7 +13,9 @@ export default class Ranges extends Component {
     keys: PropTypes.object.isRequired,
     ranges: PropTypes.array.isRequired,
     visibleTimeStart: PropTypes.number.isRequired,
-    visibleTimeEnd: PropTypes.number.isRequired
+    visibleTimeEnd: PropTypes.number.isRequired,
+    onRangeSelect: PropTypes.func,
+    selectedRange:PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }
   shouldComponentUpdate (nextProps, nextState) {
     return !(nextProps.canvasTimeStart === this.props.canvasTimeStart &&
@@ -24,7 +26,8 @@ export default class Ranges extends Component {
              nextProps.headerHeight === this.props.headerHeight &&
              arraysEqual(nextProps.ranges, this.props.ranges) &&
              nextProps.visibleTimeStart === this.props.visibleTimeStart &&
-             nextProps.visibleTimeEnd === this.props.visibleTimeEnd
+             nextProps.visibleTimeEnd === this.props.visibleTimeEnd &&
+             nextProps.selectedRange === this.props.selectedRange
       )
   }
 
@@ -40,10 +43,17 @@ export default class Ranges extends Component {
       }
     }, [])
   }
-  
+  handleRangeSelect = (id) =>{
+    if (this.props.onRangeSelect) {
+      this.props.onRangeSelect(id);
+    }
+  }
+  isSelected = (range,rangeIdKey)=>{
+    return this.props.selectedRange === _get(range, rangeIdKey)
+  }
   render() {
-    const { visibleTimeStart, visibleTimeEnd } = this.props
     const { rangeIdKey } = this.props.keys
+    const { visibleTimeStart, visibleTimeEnd } = this.props
     let visibleRanges = this.getVisibleRanges(visibleTimeStart, visibleTimeEnd, this.props.ranges)
     return (
       <div className='rct-ranges'>
@@ -56,6 +66,8 @@ export default class Ranges extends Component {
                                            key={index}
                                            keys={this.props.keys}
                                            range={range}
+                                           onRangeSelect={this.handleRangeSelect}
+                                           selected={this.isSelected(range,rangeIdKey)}
                                            rangeStart={range.start}
                                            rangeEnd={range.end} />)}
       </div>
